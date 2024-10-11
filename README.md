@@ -1,11 +1,14 @@
 # Terraform
 How to Install Terraform on Amazon Linux Machine.
 
-Step 1 sudo yum install -y yum-utils
+commands to execute.
 
-Step 2 sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
 
-step 3 sudo yum -y install terraform
+command 1 sudo yum install -y yum-utils
+
+command 2 sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+
+command 3 sudo yum -y install terraform
 
 Official hashicorp page to install Terraform.
 https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
