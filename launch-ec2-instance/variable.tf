@@ -7,5 +7,5 @@ variable "instance_type" {
 }
 
 variable "s3_bucket_name" {
-   discription = "name of th es3 bucket"
+   discription = "name of the s3 bucket"
 }
