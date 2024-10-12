@@ -1,14 +1,3 @@
-variable "ami_value" {
-   discription = "value of ami"
-}
-
-variable "instance_type" {
-   discription = "type of ec2 instance"
-}
-variable "s3_bucket_name" {
-   discription = "name of th es3 bucket"
-}
-
 resource "aws_instance" "test" {
   ami           - var.ami_value
   instance_type = var.instance_type
