@@ -18,8 +18,14 @@ variable "privatesubnetname" {
   default     = "private-subnet"
 }
 
+variable "publicsubnet" {}
+variable "privatesubnet" {}
 
 
+# variable "igv_name" {
+#   type        = string
+#   description = "internet gate way name"
+# }
 # variable "public-subnet" {
 #   type = map(object({
 #     cidr = list(string)
@@ -32,5 +38,4 @@ variable "privatesubnetname" {
 #   }))
 # }
 
-variable "publicsubnet" {}
-variable "privatesubnet" {}
+

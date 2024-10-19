@@ -26,3 +26,27 @@ resource "aws_subnet" "private_subnet" {
     Name = "${var.privatesubnetname}-${each.key}"
   }
 }
+
+resource "aws_internet_gateway" "test-igw" {
+  vpc_id = aws_vpc.test-vpc.id
+  tags = {
+    Name = "test-igw-1"
+  }
+}
+
+resource "aws_route_table" "test-public-routetable" {
+  vpc_id = aws_vpc.test-vpc.id
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.test-igw.id
+  }
+  tags = {
+    Name = "test-public-routetable"
+  }
+}
+
+resource "aws_route_table_association" "test-assocoiate-publicsubnet" {
+  for_each       = toset([for subnet in aws_subnet.public_subnet : subnet.id])
+  subnet_id      = each.value
+  route_table_id = aws_route_table.test-public-routetable.id
+}
