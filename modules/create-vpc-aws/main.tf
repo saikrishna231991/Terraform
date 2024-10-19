@@ -50,3 +50,16 @@ resource "aws_route_table_association" "test-assocoiate-publicsubnet" {
   subnet_id      = each.value
   route_table_id = aws_route_table.test-public-routetable.id
 }
+
+resource "aws_route_table" "test-private-subnets-route-table" {
+  vpc_id = aws_vpc.test-vpc.id
+  tags = {
+    Name = "test-private-routetable"
+  }
+}
+
+resource "aws_route_table_association" "test-assocoiate-privatesubnet" {
+  for_each       = toset([for subnet in aws_subnet.private_subnet : subnet.id])
+  subnet_id      = each.value
+  route_table_id = aws_route_table.test-private-subnets-route-table.id
+}
