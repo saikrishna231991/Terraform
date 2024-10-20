@@ -35,12 +35,12 @@ securitygroupingressrules = {
       cidr_ipv4 = "0.0.0.0/0"
       from_port = 22
       to_port   = 22
-      discription = "HTTP"
+      discription = "SSH"
     }
     "http-public-subne" = {
       cidr_ipv4 = "0.0.0.0/0"
       from_port = 80
       to_port   = 80
-      discription = "SSH"
+      discription = "HTTP"
   }
 }
