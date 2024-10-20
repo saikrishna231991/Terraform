@@ -62,4 +62,22 @@ resource "aws_route_table_association" "test-assocoiate-privatesubnet" {
   for_each       = toset([for subnet in aws_subnet.private_subnet : subnet.id])
   subnet_id      = each.value
   route_table_id = aws_route_table.test-private-subnets-route-table.id
+
+  depends_on = [aws_subnet.private_subnet]
+}
+
+# create a security-groups
+resource "aws_security_group" "ec2_sg_ssh_http" {
+  name        = var.ec2_sg_name
+  description = "Enable the Port 22 and Port 80"
+  vpc_id      = aws_vpc.test-vpc.id
+}
+
+resource "aws_vpc_security_group_ingress_rule" "ingress-rules" {
+  security_group_id = aws_security_group.ec2_sg_ssh_http.id
+  ip_protocol       = "tcp" # protocol number is 6 for tcp to specifiy all (VPC only) Use -1 to specify all protocols
+  cidr_ipv4         = "0.0.0.0/0"
+  for_each          = var.securitygroupingressrules.ingress
+  from_port         = each.value.from_port
+  to_port           = each.value.to_port
 }

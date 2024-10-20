@@ -27,3 +27,14 @@ publicsubnet = {
   "us-east-1a" = "10.0.101.0/24"
   "us-east-1b" = "10.0.102.0/24"
 }
+
+ec2_sg_name = "test-securitygroup"
+
+securitygroupingressrules = {
+  ingress_rules = {
+    "ssh-public-subnet" = {
+      from_port = 22
+      to_port   = 22
+    }
+  }
+}
