@@ -37,10 +37,16 @@ securitygroupingressrules = {
       to_port   = 22
       discription = "SSH"
     }
-    "http-public-subne" = {
+    "http-public-subnet" = {
       cidr_ipv4 = "0.0.0.0/0"
       from_port = 80
       to_port   = 80
       discription = "HTTP"
+    }
+    "https-public-subnets" = {
+      cidr_ipv4 = "0.0.0.0/0"
+      from_port = 443
+      to_port   = 443
+      discription = "HTTPS"
+    }
   }
-}
