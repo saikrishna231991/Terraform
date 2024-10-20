@@ -24,12 +24,7 @@ variable "ec2_sg_name" {}
 
 variable "securitygroupingressrules" {
   description = "The Ingress security group rules for the web servers."
-  type = object({
-    ingress = optional(map(object({
-      from_port = number
-      to_port   = number
-    })), {})
-  })
+  type = map
 }
 
 

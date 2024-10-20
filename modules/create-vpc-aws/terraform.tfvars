@@ -31,10 +31,16 @@ publicsubnet = {
 ec2_sg_name = "test-securitygroup"
 
 securitygroupingressrules = {
-  ingress_rules = {
     "ssh-public-subnet" = {
+      cidr_ipv4 = "0.0.0.0/0"
       from_port = 22
       to_port   = 22
+      discription = "HTTP"
     }
+    "http-public-subne" = {
+      cidr_ipv4 = "0.0.0.0/0"
+      from_port = 80
+      to_port   = 80
+      discription = "SSH"
   }
 }

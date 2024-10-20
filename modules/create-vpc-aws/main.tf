@@ -71,13 +71,22 @@ resource "aws_security_group" "ec2_sg_ssh_http" {
   name        = var.ec2_sg_name
   description = "Enable the Port 22 and Port 80"
   vpc_id      = aws_vpc.test-vpc.id
+
+  # ingress = {
+  #   ip_protocol       = "tcp" # protocol number is 6 for tcp to specifiy all (VPC only) Use -1 to specify all protocols
+  #   cidr_blocks         = ["0.0.0.0/0"]
+  #   for_each          = var.securitygroupingressrules.ingress
+  #   from_port         = each.value.from_port
+  #   to_port           = each.value.to_port 
+  # }
 }
 
 resource "aws_vpc_security_group_ingress_rule" "ingress-rules" {
   security_group_id = aws_security_group.ec2_sg_ssh_http.id
   ip_protocol       = "tcp" # protocol number is 6 for tcp to specifiy all (VPC only) Use -1 to specify all protocols
-  cidr_ipv4         = "0.0.0.0/0"
-  for_each          = var.securitygroupingressrules.ingress
+  for_each          = var.securitygroupingressrules
   from_port         = each.value.from_port
   to_port           = each.value.to_port
+  cidr_ipv4         = each.value.cidr_ipv4
+  description       = each.value.discription
 }
