@@ -30,7 +30,7 @@ resource "aws_subnet" "private_subnet" {
 resource "aws_internet_gateway" "test-igw" {
   vpc_id = aws_vpc.test-vpc.id
   tags = {
-    Name = var.igv_name
+    Name = var.igw_name
   }
 }
 
@@ -76,10 +76,21 @@ resource "aws_security_group" "ec2_sg_ssh_http" {
 
 resource "aws_vpc_security_group_ingress_rule" "ingress-rules" {
   security_group_id = aws_security_group.ec2_sg_ssh_http.id
-  ip_protocol       = "tcp" # protocol number is 6 for tcp to specifiy all (VPC only) Use -1 to specify all protocols
-  for_each          = var.securitygroupingressrules
+  for_each          = var.securitygroup_ingress_rules
   from_port         = each.value.from_port
   to_port           = each.value.to_port
   cidr_ipv4         = each.value.cidr_ipv4
+  ip_protocol       = each.value.protocol
   description       = each.value.discription
+}
+
+resource "aws_vpc_security_group_egress_rule" "egress-rules" {
+  security_group_id = aws_security_group.ec2_sg_ssh_http.id
+  for_each          = var.securitygroup_egress_rules
+  from_port         = each.value.from_port
+  to_port           = each.value.to_port
+  cidr_ipv4         = each.value.cidr_ipv4
+  ip_protocol       = each.value.protocol
+  description       = each.value.discription
+
 }

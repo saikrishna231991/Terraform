@@ -22,11 +22,16 @@ variable "publicsubnet" {}
 variable "privatesubnet" {}
 variable "ec2_sg_name" {}
 
-variable "securitygroupingressrules" {
+variable "securitygroup_egress_rules" {
   description = "The Ingress security group rules for the web servers."
   type = map
 }
- variable "igv_name" {
+
+variable "securitygroup_ingress_rules" {
+  description = "The Ingress security group rules for the web servers."
+  type = map
+}
+ variable "igw_name" {
    type        = string
    description = "internet gate way name"
  }
