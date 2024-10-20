@@ -30,7 +30,7 @@ resource "aws_subnet" "private_subnet" {
 resource "aws_internet_gateway" "test-igw" {
   vpc_id = aws_vpc.test-vpc.id
   tags = {
-    Name = "test-igw-1"
+    Name = var.igv_name
   }
 }
 
@@ -72,13 +72,6 @@ resource "aws_security_group" "ec2_sg_ssh_http" {
   description = "Enable the Port 22 and Port 80"
   vpc_id      = aws_vpc.test-vpc.id
 
-  # ingress = {
-  #   ip_protocol       = "tcp" # protocol number is 6 for tcp to specifiy all (VPC only) Use -1 to specify all protocols
-  #   cidr_blocks         = ["0.0.0.0/0"]
-  #   for_each          = var.securitygroupingressrules.ingress
-  #   from_port         = each.value.from_port
-  #   to_port           = each.value.to_port 
-  # }
 }
 
 resource "aws_vpc_security_group_ingress_rule" "ingress-rules" {

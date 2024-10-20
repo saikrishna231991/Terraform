@@ -26,6 +26,10 @@ variable "securitygroupingressrules" {
   description = "The Ingress security group rules for the web servers."
   type = map
 }
+ variable "igv_name" {
+   type        = string
+   description = "internet gate way name"
+ }
 
 
 # variable "web_security_group_rules" {
