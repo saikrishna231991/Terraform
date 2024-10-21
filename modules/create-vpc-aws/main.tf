@@ -114,3 +114,18 @@ resource "aws_vpc_security_group_ingress_rule" "jenkins-ingress-rules" {
   ip_protocol       = each.value.protocol
   description       = each.value.discription
 }
+
+# install jenkins
+
+resource "aws_instance" "jenkins_ec2_instance_ip" {
+  ami           = var.ami_value
+  instance_type = var.instance_type
+  # key_name                    = "aws_ec2_terraform"
+  subnet_id                   =  tolist(aws_subnet.public_subnet)[0]
+  vpc_security_group_ids      = [aws_security_group.create_security_group_2.id , aws_security_group.create_security_group_1.id ]
+  associate_public_ip_address = true
+  metadata_options {
+    http_endpoint = "enabled"  # Enable the IMDSv2 endpoint
+    http_tokens   = "required" # Require the use of IMDSv2 tokens
+  }
+}

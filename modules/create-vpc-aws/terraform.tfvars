@@ -17,6 +17,8 @@ cidr     = "10.0.0.0/16"
 #     cidr = ["10.0.1.0/24", "10.0.2.0/24"]
 #   }
 # }
+ami_value = "ami-0fff1b9a61dec8a5f"
+instance_type = "t2.micro"
 
 privatesubnet = {
   "us-east-1a" = "10.0.1.0/24"

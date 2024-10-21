@@ -23,6 +23,7 @@ variable "privatesubnet" {}
 variable "Security_Group_Name" {}
 variable "Security_Group_Name_1" {}
 
+
 variable "securitygroup_egress_rules" {
   description = "The egress security group rules for the web servers."
   type = map
@@ -37,6 +38,17 @@ variable "securitygroup_ingress_rules" {
    description = "internet gate way name"
  }
 
+variable "ami_value" {
+  description = "value of ami"
+}
+
+variable "instance_type" {
+ description = "type of ec2 instance"
+}
+
+variable "subnet_id" {}
+variable "securitygroup_for_jenkins" {}
+variable "enable_public_ip_address" {}
 
 # variable "web_security_group_rules" {
 #   description = "The security group rules for the web servers."
