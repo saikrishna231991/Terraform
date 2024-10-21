@@ -26,29 +26,29 @@ variable "Security_Group_Name_1" {}
 
 variable "securitygroup_egress_rules" {
   description = "The egress security group rules for the web servers."
-  type = map
+  type        = map(any)
 }
 
 variable "securitygroup_ingress_rules" {
   description = "The Ingress security group rules for the web servers."
-  type = map
+  type        = map(any)
 }
- variable "igw_name" {
-   type        = string
-   description = "internet gate way name"
- }
+variable "igw_name" {
+  type        = string
+  description = "internet gate way name"
+}
 
 variable "ami_value" {
   description = "value of ami"
 }
 
 variable "instance_type" {
- description = "type of ec2 instance"
+  description = "type of ec2 instance"
 }
 
-variable "subnet_id" {}
-variable "securitygroup_for_jenkins" {}
-variable "enable_public_ip_address" {}
+# variable "subnet_id" {}
+# variable "securitygroup_for_jenkins" {}
+# variable "enable_public_ip_address" {}
 
 # variable "web_security_group_rules" {
 #   description = "The security group rules for the web servers."

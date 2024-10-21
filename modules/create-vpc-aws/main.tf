@@ -117,12 +117,28 @@ resource "aws_vpc_security_group_ingress_rule" "jenkins-ingress-rules" {
 
 # install jenkins
 
+resource "aws_key_pair" "TF_KEY" {
+  key_name   = "TF_KEY"
+  public_key = tls_private_key.rsa.public_key_openssh
+}
+resource "tls_private_key" "rsa" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+resource "local_file" "TF-KEY" {
+  content  = tls_private_key.rsa.private_key_pem
+  filename = "tfkey"
+}
+
 resource "aws_instance" "jenkins_ec2_instance_ip" {
   ami           = var.ami_value
   instance_type = var.instance_type
-  # key_name                    = "aws_ec2_terraform"
-  subnet_id                   =  tolist(aws_subnet.public_subnet)[0]
-  vpc_security_group_ids      = [aws_security_group.create_security_group_2.id , aws_security_group.create_security_group_1.id ]
+  key_name      = "TF_KEY"
+  # key_name                    = aws_key_pair.my_key_pair.key_name
+  for_each                    = toset([for subnet in aws_subnet.public_subnet : subnet.id])
+  subnet_id                   = each.value
+  vpc_security_group_ids      = [aws_security_group.create_security_group_2.id, aws_security_group.create_security_group_1.id]
   associate_public_ip_address = true
   metadata_options {
     http_endpoint = "enabled"  # Enable the IMDSv2 endpoint
