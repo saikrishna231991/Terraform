@@ -28,7 +28,20 @@ publicsubnet = {
   "us-east-1b" = "10.0.102.0/24"
 }
 
-ec2_sg_name = "test-securitygroup"
+Security_Group_Name = "Generall_security_Group"
+
+
+Security_Group_Name_1 = "Jenkins_security_Group"
+
+Jenkins_security_group = {
+    "ssh-public-subnet" = {
+      cidr_ipv4 = "0.0.0.0/0"
+      from_port = 8080
+      to_port   = 8080
+      protocol  = "tcp"
+      discription = "Jenkins_Port"
+    }
+}
 
 securitygroup_ingress_rules = {
     "ssh-public-subnet" = {

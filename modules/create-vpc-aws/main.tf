@@ -66,16 +66,25 @@ resource "aws_route_table_association" "test-assocoiate-privatesubnet" {
   depends_on = [aws_subnet.private_subnet]
 }
 
-# create a security-groups
-resource "aws_security_group" "ec2_sg_ssh_http" {
-  name        = var.ec2_sg_name
-  description = "Enable the Port 22 and Port 80"
+# create a security-groups 1
+resource "aws_security_group" "create_security_group_1" {
+  name        = var.Security_Group_Name
+  description = "Generall purpose Security Group"
   vpc_id      = aws_vpc.test-vpc.id
 
 }
 
+#  create a security-groups 2
+resource "aws_security_group" "create_security_group_2" {
+  name        = var.Security_Group_Name_1
+  description = "Jenkins purpose Security Group"
+  vpc_id      = aws_vpc.test-vpc.id
+
+}
+
+
 resource "aws_vpc_security_group_ingress_rule" "ingress-rules" {
-  security_group_id = aws_security_group.ec2_sg_ssh_http.id
+  security_group_id = aws_security_group.create_security_group_1.id
   for_each          = var.securitygroup_ingress_rules
   from_port         = each.value.from_port
   to_port           = each.value.to_port
@@ -85,7 +94,7 @@ resource "aws_vpc_security_group_ingress_rule" "ingress-rules" {
 }
 
 resource "aws_vpc_security_group_egress_rule" "egress-rules" {
-  security_group_id = aws_security_group.ec2_sg_ssh_http.id
+  security_group_id = aws_security_group.create_security_group_1.id
   for_each          = var.securitygroup_egress_rules
   from_port         = each.value.from_port
   to_port           = each.value.to_port
@@ -93,4 +102,15 @@ resource "aws_vpc_security_group_egress_rule" "egress-rules" {
   ip_protocol       = each.value.protocol
   description       = each.value.discription
 
+}
+
+
+resource "aws_vpc_security_group_ingress_rule" "jenkins-ingress-rules" {
+  security_group_id = aws_security_group.create_security_group_2.id
+  for_each          = var.Jenkins_security_group
+  from_port         = each.value.from_port
+  to_port           = each.value.to_port
+  cidr_ipv4         = each.value.cidr_ipv4
+  ip_protocol       = each.value.protocol
+  description       = each.value.discription
 }

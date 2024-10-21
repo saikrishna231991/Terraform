@@ -17,13 +17,14 @@ variable "privatesubnetname" {
   description = "Prefix used for all resources names"
   default     = "private-subnet"
 }
-
+variable "Jenkins_security_group" {}
 variable "publicsubnet" {}
 variable "privatesubnet" {}
-variable "ec2_sg_name" {}
+variable "Security_Group_Name" {}
+variable "Security_Group_Name_1" {}
 
 variable "securitygroup_egress_rules" {
-  description = "The Ingress security group rules for the web servers."
+  description = "The egress security group rules for the web servers."
   type = map
 }
 
